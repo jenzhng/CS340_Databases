@@ -1,0 +1,70 @@
+<! -- recordsorders.hbs -->
+
+
+<div class="bg-light m-5 p-3 border-start border-success border-5">
+    <h2>RecordOrders</h2>
+</div>
+
+<div class="container">
+    <table class="table table-light table-hover table-striped" id="recordorders-table">
+        <caption>Total Dollar Amount Spent for Each Customer</caption>
+        <tr>
+            {{#each data.[0]}}
+            <th>{{@key}}</th>
+            {{/each}}
+        </tr>
+        {{#each data}}
+        <tr>
+
+            <td>{{this.customerID}}</td>
+            <td>{{this.firstName}}</td>
+            <td>{{this.lastName}}</td>
+            <td>{{this.email}}</td>
+            <td>${{this.totalSpent}}</td>
+
+        </tr>
+        {{/each}}
+    </table>
+</div>
+
+<!-- INSERT RecordOrder -->
+
+<section id="addRecordOrder">
+    <div class="container">
+        <div class="row justify-content-center my-5">
+            <form id="add-record-order-form" method="POST" action="/add-record-order">
+                <legend><strong>Add a New Record Order to the Database</strong></legend>
+                <label>Customer:
+                    <select name="input-email" id="recordOrderCustomerSelect">
+                        <option value="test">Select Customer By Email</option>
+                        {{# each data}}
+                        <option value="{{this.customerID}}">{{this.email}}</option>
+                        {{/each}}
+                    </select>
+                </label>
+                <label>Order Date:
+                    <input type="date" id="order-date">
+                </label>
+                <label>Record Purchased:
+                    <select name="input-record" id="recordOrderRecordSelect">
+                        <option value="test">Select Record by Title</option>
+                        {{# each data}}
+                        <option value="{{this.title}}">{{this.title}}</option>
+                        {{/each}}
+                    </select>
+                </label>
+                <label>Quantity Purchased</label>
+                <input type="text" class="form-label" id="qtyPurchased">
+
+                <div class="row">
+                    <div class="col-md-3 my-3">
+                        <input class="btn btn-primary" type="submit" id="addRecordOrder" value="Add New RecordOrder">
+                        <input class="btn btn-danger" type="submit" value="Cancel">
+                    </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script src="./js/add_record_order.js"></script>

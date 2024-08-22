@@ -1,0 +1,84 @@
+<! -- genres.hbs -->
+
+
+<div class="bg-light m-5 p-3 border-start border-success border-5">
+    <h2>Genres</h2>
+</div>
+
+<div class="container">
+    <table class="table table-light table-hover table-striped" id="genres-table">
+        <caption>List of all Genres currently in the database</caption>
+        <tr>
+            <th>
+                <a href="#">New</a>
+            </th>
+            <th></th>
+            {{#each data.[0]}}
+            <th>{{@key}}</th>
+            {{/each}}
+        </tr>
+        {{#each data}}
+        <tr>
+            <td><a href="#updateGenre">Edit</a></td>
+            <td><button class="btn-danger fw-bold"onclick="deleteGenre({{this.genreID}})">Delete</button></td>
+            <td>{{this.genreID}}</td>
+            <td>{{this.name}}</td>
+            <td>{{this.description}}</td>
+        </tr>
+        {{/each}}
+    </table>
+</div>
+
+<section id="addGenre">
+    <div class="container">
+        <div class="row justify-content-center my-5">
+            <form id="add-genre-form" method="POST" action="/add-genre">
+                <legend><strong>Add a New Genre to the Database</strong></legend>
+                <label class="form-label">Name of Genre:</label>
+                <input type="text" class="form-control" id="name">
+
+                <label class="form-label">Description of Genre:</label>
+                <input type="text" class="form-control" id="desc">
+
+                <div class="row">
+                    <div class="col-md-3 my-3">
+                        <input class="btn btn-primary" type="submit" id="addGenre" value="Add New Genre">
+                        <input class="btn btn-danger" type="submit" value="Cancel">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section id="updateGenre">
+    <div class="container">
+        <div class="row justify-content-center my-5">
+            <form id="update-genre-form">
+                <legend><strong>Update an Existing Genre's Information</strong></legend>
+                <label>Genre:
+                    <select name="input-name" id="genreSelect">
+                        <option value="test">Select Genre By Name</option>
+                        {{# each data}}
+                        <option value="{{this.genreID}}">{{this.name}}</option>
+                        {{/each}}
+                </label>
+                <label class="form-label">Genre Name:</label>
+                <input type="text" class="form-control" id="name-upd">
+
+                <label class="form-label">Genre Desciption</label>
+                <input type="text" class="form-control" id="desc-upd">
+                <div class="row">
+                    <div class="col-md-3 my-3">
+                        <input class="btn btn-primary" type="submit" id="updateGenre" value="Update Genre">
+                        <input class="btn btn-danger" type="submit" value="Cancel">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script src="./js/add_genre.js"></script>
+<script src="./js/update_genre.js"></script>
+<script src="./js/delete_genre.js"></script>

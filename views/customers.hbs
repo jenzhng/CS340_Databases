@@ -1,0 +1,104 @@
+<! -- customers.hbs -->
+
+<div class="bg-light m-5 p-3 border-start border-success border-5">
+    <h2>Customers</h2>
+</div>
+
+<div class="container">
+    <table class="table table-light table-hover table-striped" id="customers-table">
+        <caption>List of all Customers currently in the database</caption>
+        <tr>
+            <th>
+                <a href="#">New</a>
+            </th>
+            <th></th>
+            {{#each data.[0]}}
+            <th>{{@key}}</th>
+            {{/each}}
+        </tr>
+        {{#each data}}
+        <tr>
+            <td><a href="#updateCustomer">Edit</a></td>
+            <td><button class="btn-danger fw-bold" onclick="deleteCustomer({{this.customerID}})">Delete</button></td>
+            <td>{{this.customerID}}</td>
+            <td>{{this.firstName}}</td>
+            <td>{{this.lastName}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.phoneNumber}}</td>
+        </tr>
+        {{/each}}
+    </table>
+</div>
+
+<!--INSERT CUSTOMER-->
+<section id="addCustomer">
+<div class="container">
+    <div class="row justify-content-center my-5">
+        <form id="add-customer-form" method="POST" action="/add-customer">
+            <legend><strong>Add a New Customer to the Database</strong></legend>
+            <label class="form-label">First Name:</label>
+            <input type="text" class="form-control" id="first-name" placeholder="Customer's first name">
+            
+            <label class="form-label">Last Name:</label>
+            <input type="text" class="form-control" id="last-name" placeholder="Customer's last name">
+
+            <label for="email" class="form-label">Email Address:</label>
+            <input type="email" class="form-control" id="email" placeholder="example@domain.com">
+
+            <label class="form-label">Phone Number:</label>
+            <input type="text" class="form-control" id="phone-number" placeholder="XXX-XXX-XXXX">
+
+            <div class="row">
+                <div class="col-md-3 my-3">
+                    <input class="btn btn-primary" type="submit" id="addCustomer" value="Add New Customer">
+                    <input class="btn btn-danger" type="submit" value="Cancel">
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+</section>
+
+<!--UPDATE CUSTOMER-->
+<section id="updateCustomer">
+<div class="container">
+    <div class="row justify-content-center my-5">
+        <form id="update-customer-form">
+            <legend><strong>Update an Existing Customer's Information</strong></legend>
+            <label>Customer:
+                <select name="input-email" id="mySelect">        
+                    <option value="test">Select Customer By Email</option>
+                    {{# each data}}
+                    <option value="{{this.customerID}}">{{this.email}}</option>
+                    {{/each}}
+                </select>
+            </label>
+            <label class="form-label"></label>
+            <input type="text" class="form-control" id="first-name-upd" placeholder="Jane">
+
+            <label class="form-label"></label>
+            <input type="text" class="form-control" id="last-name-upd" placeholder="Smith">
+
+            <label for="email" class="form-label"></label>
+            <input type="email" class="form-control" id="email-upd" placeholder="jsmith@gmail.com">
+
+            <label class="form-label">Phone Number:</label>
+            <input type="text" class="form-control" id="phone-upd" placeholder="XXX-XXX-XXXX">
+
+            <div class="row">
+                <div class="col-md-3 my-3">
+                    <input class="btn btn-primary" type="submit" id="updateCustomer" value="Update Customer">
+                    <input class="btn btn-danger" type="submit" value="Cancel">
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+</section>
+
+
+<script src="./js/add_customer.js"></script>
+<script src="./js/update_customer.js"></script>
+<script src="./js/delete_customer.js"></script>

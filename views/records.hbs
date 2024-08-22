@@ -1,0 +1,103 @@
+<! -- records.hbs -->
+
+
+<div class="bg-light m-5 p-3 border-start border-success border-5">
+    <h2>Records</h2>
+</div>
+
+<div class="container">
+    <table class="table table-light table-hover table-striped" id="records-table">
+        <caption>List of all Records currently in the database</caption>
+        <tr>
+            <th>
+                <a href="#">New</a>
+            </th>
+            <th></th>
+            {{#each data.[0]}}
+            <th>{{@key}}</th>
+            {{/each}}
+        </tr>
+        {{#each data}}
+        <tr>
+            <td><a href="#updateRecord">Edit</a></td>
+            <td><button class="btn-danger fw-bold" onclick="deleteRecord({{this.recordID}})">Delete</button></td>
+            <td>{{this.recordID}}</td>
+            <td>{{this.title}}</td>
+            <td>{{this.artist}}</td>
+            <td>{{this.qtyStock}}</td>
+            <td>{{this.price}}</td>
+        </tr>
+        {{/each}}
+    </table>
+</div>
+
+<!--INSERT RECORD-->
+<section id="addRecord">
+    <div class="container">
+        <div class="row justify-content-center my-5">
+            <form id="add-record-form" method="POST" action="/add-record">
+                <legend><strong>Add a New Record to the Database</strong></legend>
+                <label class="form-label">Title:</label>
+                <input type="text" class="form-control" id="title" placeholder="Title of the Record">
+
+                <label class="form-label">Artist:</label>
+                <input type="text" class="form-control" id="artist" placeholder="Artist of the Record">
+
+                <label class="form-label">Quantity in Stock:</label>
+                <input type="text" class="form-control" id="qty-stock" placeholder="Total Purchased Units of the Record">
+
+                <label class="form-label">Price:</label>
+                <input type="text" class="form-control" id="price" placeholder="Price of the Record">
+
+                <div class="row">
+                    <div class="col-md-3 my-3">
+                        <input class="btn btn-primary" type="submit" id="addRecord" value="Add New Record">
+                        <input class="btn btn-danger" type="submit" value="Cancel">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!--UPDATE RECORD-->
+<section id="updateRecord">
+    <div class="container">
+        <div class="row justify-content-center my-5">
+            <form id="update-record-form">
+                <legend><strong>Update an Existing Record's Information</strong></legend>
+                <label>Record:
+                    <select name="input-title" id="recordSelect">
+                        <option value="test">Select Record by Title</option>
+                        {{# each data}}
+                        <option value="{{this.recordID}}">{{this.title}}</option>
+                        {{/each}}
+                    </select>
+                </label>
+                <label class="form-label">Title:</label>
+                <input type="text" class="form-control" id="title-upd">
+
+                <label class="form-label">Arist:</label>
+                <input type="text" class="form-control" id="artist-upd">
+
+                <label class="form-label">Stock:</label>
+                <input type="text" class="form-control" id="stock-upd">
+
+                <label class="form-label">Price:</label>
+                <input type="text" class="form-control" id="price-upd">
+
+                <div class="row">
+                    <div class="col-md-3 my-3">
+                        <input class="btn btn-primary" type="submit" id="updateRecord" value="Update Record">
+                        <input class="btn btn-danger" type="submit" value="Cancel">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</section>
+
+<script src="./js/add_record.js"></script>
+<script src="./js/update_record.js"></script>
+<script src="./js/delete_record.js"></script>

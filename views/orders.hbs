@@ -1,0 +1,90 @@
+<! -- orders.hbs -->
+
+
+<div class="bg-light m-5 p-3 border-start border-success border-5">
+    <h2>Orders</h2>
+</div>
+
+<div class="container">
+    <table class="table table-light table-hover table-striped" id="orders-table">
+        <caption>List of all Orders currently in the database</caption>
+        <tr>
+            <th>
+                <a href="#">New</a>
+            </th>
+            <th></th>
+            {{#each data.[0]}}
+            <th>{{@key}}</th>
+            {{/each}}
+        </tr>
+        {{#each data}}
+        <tr>
+            <td><a href="#">Edit</a></td>
+            <td><button onclick="deleteOrder({{this.orderID}})">Delete</button></td>
+            <td>{{this.orderID}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.orderDate}}</td>
+        </tr>
+        {{/each}}
+    </table>
+</div>
+
+<!--INSERT ORDER-->
+<section id="addOrder">
+    <div class="container">
+        <div class="row justify-content-center my-5">
+            <form id="add-order-form" method="POST" action="/add-order">
+                <legend><strong>Add a New Order to the Database</strong></legend>
+                <label class="form-label">Customer:
+                    <select name="input-email" id="input-email">
+                        <option value="test">Select Customer by Email</option>
+                        {{#each data}}
+                        <option value="{{this.email}}">{{this.email}}</option>
+                        {{/each}}
+                    </select>
+                </label>
+				
+				<label class="form-label">Order Date:</label>
+                <input type="text" class="form-control" id="date" placeholder="YYYYMMDD">
+				<div class="row">
+                    <div class="col-md-3 my-3">
+                        <input class="btn btn-primary" type="submit" id="addOrder" value="Add New Order">
+                        <input class="btn btn-danger" type="submit" value="Cancel">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section id="updateOrder">
+    <div class="container">
+        <div class="row justify-content-center my-5">
+            <form id="update-order-form">
+                <legend><strong>Update an Existing Order's Information</strong></legend>
+                <label>Order:
+                    <select name="input-name" id="orderSelect">
+                        <option value="test">Select Order By Email</option>
+                        {{# each data}}
+                        <option value="{{this.orderID}}">{{this.orderID}}</option>
+                        {{/each}}
+                </label>
+				<label class="form-label">Order Email:</label>
+                <input type="text" class="form-control" id="email-upd" placeholder="example@domain.com">
+				
+                <label class="form-label">Order Date:</label>
+                <input type="text" class="form-control" id="date-upd" placeholder="YYYYMMDD">
+                <div class="row">
+                    <div class="col-md-3 my-3">
+                        <input class="btn btn-primary" type="submit" id="updateOrder" value="Update Order">
+                        <input class="btn btn-danger" type="submit" value="Cancel">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script src="./js/add_order.js"></script>
+<script src="./js/update_order.js"></script>
+<script src="./js/delete_order.js"></script>

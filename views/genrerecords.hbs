@@ -1,0 +1,63 @@
+<! -- genrerecords.hbs -->
+
+
+<div class="bg-light m-5 p-3 border-start border-success border-5">
+    <h2>GenreRecords</h2>
+</div>
+
+<div class="container">
+    <table class="table table-light table-hover table-striped" id="genrerecords-table">
+        <caption>List of all Records and their associated Genre</caption>
+        <tr>
+            <th></th>
+            {{#each data.[0]}}
+            <th>{{@key}}</th>
+            {{/each}}
+        </tr>
+        {{#each data}}
+        <tr>
+            <td><button class="btn-danger fw-bold" onclick="deleteGenreRecord({{this.recordID}}, '{{this.genre}}')">Delete</button></td>
+            <td>{{this.recordID}}</td>
+            <td>{{this.title}}</td>
+            <td>{{this.artist}}</td>
+            <td>{{this.Stock}}</td>
+            <td>${{this.InventoryValue}}</td>
+            <td>{{this.genre}}</td>
+            <td>{{this.description}}</td>
+        </tr>
+        {{/each}}
+    </table>
+</div>
+
+<!-- INSERT GeneRecord -->
+<section id="addGenreRecord">
+    <div class="container">
+        <div class="row justify-content-center my-5">
+            <form id="add-genre-record-form" method="POST" action="/add-genre-record">
+                <legend><strong>Add a Genre Record</strong></legend>
+                <label>Title of Record:
+                    <select name="input-record" id="recordSelect">
+                        {{# each data}}
+                        <option value="{{this.title}}">{{this.title}}</option>
+                        {{/each}}
+                    </select>
+                </label>
+                <label>Genre Name:
+                    <select name="input-genre" id="genreSelect">
+                        {{# each data}}
+                        <option value="{{this.genre}}">{{this.genre}}</option>
+                        {{/each}}
+                    </select>
+                </label>
+                <div class="row">
+                    <div class="col-md-3 my-3">
+                        <input class="btn btn-primary" type="submit" id="adGenreRecord" value="Add New GenreRecord">
+                        <input class="btn btn-danger" type="submit" value="Cancel">
+                    </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script src="./js/delete_genre_record.js"></script>
